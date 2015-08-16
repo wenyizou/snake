@@ -1,0 +1,30 @@
+.container{
+	height: 650px;
+	width: 650px;
+	margin: 50px auto;
+	border: 1px dashed green;
+}
+
+.game_block{
+	height:28px;
+	width: 28px;
+	margin-left: 1px;
+	margin-right: 1px;
+	margin-top: 0px;
+	margin-bottom: -2px;
+	border:1px solid green;
+	display:inline-block;
+	border-radius: 10px;
+}
+
+.snake_body{
+	background-color: #89CFF0;
+}
+
+.snake_head{
+	background-color: #1EFA59;
+}
+
+.bean{
+	background-color: #FFB640;
+}
