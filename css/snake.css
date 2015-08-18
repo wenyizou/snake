@@ -1,46 +1,54 @@
 body{	
-		font-family: "helvetica neue", helvetica, arial, sans-serif;
-		font-size: 13px;
+		font-family: cursive;
+		font-size: 14px;
 		background: #333 url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/low_contrast_linen.png');
 	}
+
+/*general div part*/
+#page_title{
+	font-family: cursive;
+	font-size: 32px;
+	color: #c97114;
+	margin-top: 15px; 
+	margin-bottom: 0px;
+	text-align: center;
+}
 
 .container{
 	height: 90%;
 	width: 90%;
-	margin-top: 1px ;
-	border: 1px dashed green;
 	position: absolute;
 }
 
+#author{
+	position: fixed;
+    bottom: 10px;
+    right: 10px;
+	font-size: 20px;
+	color: #c97114;
+}
 
 .game_board{
-	height: 510px;
-	width: 650px;
-	margin-top: 50px ;
+	height: 514px;
+	width: 646px;
+	margin-top: 15px ;
 	margin-left :200px;
-	border: 1px dashed green;
+	border: 2px solid #c97114;
+	border-radius: 10px;
 	display: inline-block;
 	position: relative;
 	float: left;
+	padding-top: 2px;
+	padding-left: 2px;
 }
 
-.game_board2{
-	width: 200px;
-	height: 200px;
-	margin: 20px 20px;
-	border: 1px solid red;
-	display: inline-block;
-	text-align: center;
-	padding-top: 20px;
-
-}
 
 .panel{
 	height: 510px;
 	width: 250px;
-	margin-top: 50px;
+	margin-top: 15px;
 	margin-left: 70px;
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	display: inline-block;
 	position: relative;
 	float: left;
@@ -53,7 +61,8 @@ body{
 	margin-right: 1px;
 	margin-top: 0px;
 	margin-bottom: -2px;
-	border:1px solid green;
+	/*border:1px solid green;*/
+	padding: 1px;
 	display:inline-block;
 	border-radius: 10px;
 }
@@ -66,13 +75,17 @@ body{
 	background-color: #1EFA59;
 }
 
+.snake_head_dead{
+	background-color: #FF3B3B;
+}
+
 .bean{
 	background-color: #FFB640;
 }
 
 
 
-
+/*below are button part */
 
 
 #start_button {
@@ -102,6 +115,7 @@ body{
 	position: relative;
 	left:50px;
 	top:80px;
+	font-family: cursive;
 	/*text-align: center;*/
 }
 #start_button:hover {
@@ -149,6 +163,7 @@ body{
 	left:26px;
 	opacity: 0;
 	display: inline-block;
+	font-family: cursive;
 }
 
 
@@ -174,6 +189,8 @@ body{
 	width: 157px;
 	height: 65px;
 }
+
+/*below are score and instruction part*/
 
 #your_score_string{
 	text-decoration:none;
@@ -202,4 +219,74 @@ body{
 	font-size: 16px;
 	text-align: center;
 	font-family: cursive;
+}
+
+/*below are radio buttons for difficulty*/
+
+div.difficulty_radio {
+  position: relative;
+  text-align: center;
+  top:30px;
+}
+
+input[type='radio'] {
+  display: none;
+  cursor: pointer;
+}
+input[type='radio']:focus, input[type='radio']:active {
+  outline: none;
+}
+input[type='radio'] + label {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding-left: 25px;
+  margin-right: 10px;
+  color: #89CFF0;;
+}
+input[type='radio'] + label:before, input[type='radio'] + label:after {
+  content: '';
+  font-family: cursive;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  left: 0;
+  bottom: 0;
+  text-align: center;
+  position: absolute;
+}
+input[type='radio'] + label:before {
+  background-color: #fafafa;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+input[type='radio'] + label:after {
+  color: #fff;
+}
+input[type='radio']:checked + label:before {
+  -moz-box-shadow: inset 0 0 0 10px #158EC6;
+  -webkit-box-shadow: inset 0 0 0 10px #158EC6;
+  box-shadow: inset 0 0 0 10px #158EC6;
+}
+
+/*Radio Specific styles*/
+input[type='radio'] + label:before {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+input[type='radio'] + label:hover:after, input[type='radio']:checked + label:after {
+  content: '\2022';
+  position: absolute;
+  top: 0px;
+  font-size: 19px;
+  line-height: 15px;
+}
+input[type='radio'] + label:hover:after {
+  color: #89CFF0;
+}
+input[type='radio']:checked + label:after, input[type='radio']:checked + label:hover:after {
+  color: #fff;
 }

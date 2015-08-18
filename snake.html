@@ -9,10 +9,19 @@
 
 
 <body>
+	<p id="page_title">Snake it!</p>
 	<div class="container">
 		<div class="game_board">
 		</div>
 		<div class="panel">
+			<div class="difficulty_radio">
+				<input id='radio-1' type="radio" name='r-group-1' checked='checked' />
+				<label for="radio-1">Easy</label>
+				<input id='radio-2' type="radio" name='r-group-1' />
+				<label for="radio-2">Medium</label>
+				<input id='radio-3' type="radio" name='r-group-1' />
+				<label for="radio-3">Hard</label>
+			</div>
 			<div><a href="#" id="start_button">Play!</a></div>
 			<div id="press_enter">or press enter</div>
 			<div id="stat_panel">
@@ -22,6 +31,7 @@
 			<div id="instruction">Instruction:<br/><br/>Use arrow key or 'wasd' to control snake.<br/>Eat as much as you can!</div>
 		</div>
 	</div>
+	<div id="author">~By wenyi~</div>
 </body>
 </html>
 

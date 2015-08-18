@@ -3,7 +3,6 @@
 	var snake_body_array = [4,3,2,1,0];
 	var bean_pos = Math.floor(Math.random()*game_block_in_height*game_block_in_width);
 	var direction = "right";
-	var difficulty = "easy";
 
 $(document).ready(function(){
 
@@ -21,40 +20,6 @@ $(document).ready(function(){
 	// make sure bean position won't stack with snake itself
 	resetBoard();
 
-	// // test with user control
-	// $(document).keydown(function(key){
-	// 	// detect key press for direction change
-	// 	switch(key.keyCode){
-	// 		case 38 :    
-	// 		case 87 :// up
-	// 			if(direction !== "down"){   // can't go up when towardz down
-	// 				direction = "up";
-	// 			}
-	// 			break;
-	// 		case 39 :
-	// 		case 68 :    // right
-	// 			if(direction !== "left"){   
-	// 				direction = "right";
-	// 			}
-	// 			break;
-	// 		case 40 :    // down
-	// 		case 83 :
-	// 			if(direction !== "up"){   
-	// 				direction = "down";
-	// 			}
-	// 			break;
-	// 		case 37 :    // left
-	// 		case 65 :
-	// 			if(direction !== "right"){   
-	// 				direction = "left";
-	// 			}
-	// 			break;
-	// 		default :
-	// 			break;   // do nothing when other key pressed
-	// 	}
-	// 	//var next_pos = snakeNextPos(snake_body_array[0],direction);
-	// 	//snakeBeanCheck(snake_body_array, next_pos, bean_pos);
-	// });
 
 	// start game by pressing enter
 	$(document).keypress(function(key){
@@ -166,6 +131,14 @@ function newBean(snake_body_array){
 
 // function for start the game
 function snakeStart(){	
+	// first check difficulty
+	var difficulty=200;
+	if($("#radio-1").prop('checked')){}
+		difficulty=200;   					// easy
+	if($("#radio-2").prop('checked'))
+		difficulty=100;             		// medium
+	if($("#radio-3").prop('checked'))
+		difficulty=50;						// hard
 	snake_loop = setInterval(function(){
 	//key can only press 1 times each loop, avoid fast direction change like down->left when move right, it cause stop since snake will move straight back
 	var key_press_already=false;
@@ -205,24 +178,32 @@ function snakeStart(){
 		//var next_pos = snakeNextPos(snake_body_array[0],direction);
 		//snakeBeanCheck(snake_body_array, next_pos, bean_pos);
 	});
+		// find next position each move
 		var next_pos = snakeNextPos(snake_body_array[0],direction);
 		if(next_pos == -1) {
 			snakeStop();
 			return;
 		}
+		//calculate bean and snake relationship
 		snakeBeanCheck(snake_body_array, next_pos, bean_pos);
-	}, 200);
+		$('#your_score').html(snake_body_array.length-5);
+
+	}, difficulty);
 }
 
 // function for stop the game
 function snakeStop(){
 	window.clearInterval(snake_loop);
+	$('#b_'+ snake_body_array[0]).removeClass('snake_head');
+	$('#b_'+ snake_body_array[0]).addClass('snake_head_dead');
 }
 
+//function for reset the board
 function resetBoard(){
 	// remove all the snake and bean
 	$('#b_'+ bean_pos).removeClass('bean');
 	$('#b_'+ snake_body_array[0]).removeClass('snake_head');
+	$('#b_'+ snake_body_array[0]).removeClass('snake_head_dead');
 	for(var i=1; i< snake_body_array.length ;i++){
 		$('#b_'+ snake_body_array[i]).removeClass('snake_body');
 	}
