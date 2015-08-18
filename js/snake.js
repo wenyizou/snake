@@ -12,7 +12,7 @@ $(document).ready(function(){
 	//build the grid of the game
 	for(var i = 0; i<game_block_in_height; i++){
 		for(var j = 0; j<game_block_in_width; j++){
-			$('.container').append('<div class="game_block" id="b_'+ (i*game_block_in_width+j) +'"><div>');
+			$('.game_board').append('<div class="game_block" id="b_'+ (i*game_block_in_width+j) +'"><div>');
 		}
 	}
 	
@@ -21,40 +21,40 @@ $(document).ready(function(){
 	// make sure bean position won't stack with snake itself
 	resetBoard();
 
-	// test with user control
-	$(document).keydown(function(key){
-		// detect key press for direction change
-		switch(key.keyCode){
-			case 38 :    
-			case 87 :// up
-				if(direction !== "down"){   // can't go up when towardz down
-					direction = "up";
-				}
-				break;
-			case 39 :
-			case 68 :    // right
-				if(direction !== "left"){   
-					direction = "right";
-				}
-				break;
-			case 40 :    // down
-			case 83 :
-				if(direction !== "up"){   
-					direction = "down";
-				}
-				break;
-			case 37 :    // left
-			case 65 :
-				if(direction !== "right"){   
-					direction = "left";
-				}
-				break;
-			default :
-				break;   // do nothing when other key pressed
-		}
-		//var next_pos = snakeNextPos(snake_body_array[0],direction);
-		//snakeBeanCheck(snake_body_array, next_pos, bean_pos);
-	});
+	// // test with user control
+	// $(document).keydown(function(key){
+	// 	// detect key press for direction change
+	// 	switch(key.keyCode){
+	// 		case 38 :    
+	// 		case 87 :// up
+	// 			if(direction !== "down"){   // can't go up when towardz down
+	// 				direction = "up";
+	// 			}
+	// 			break;
+	// 		case 39 :
+	// 		case 68 :    // right
+	// 			if(direction !== "left"){   
+	// 				direction = "right";
+	// 			}
+	// 			break;
+	// 		case 40 :    // down
+	// 		case 83 :
+	// 			if(direction !== "up"){   
+	// 				direction = "down";
+	// 			}
+	// 			break;
+	// 		case 37 :    // left
+	// 		case 65 :
+	// 			if(direction !== "right"){   
+	// 				direction = "left";
+	// 			}
+	// 			break;
+	// 		default :
+	// 			break;   // do nothing when other key pressed
+	// 	}
+	// 	//var next_pos = snakeNextPos(snake_body_array[0],direction);
+	// 	//snakeBeanCheck(snake_body_array, next_pos, bean_pos);
+	// });
 
 	// start game by pressing enter
 	$(document).keypress(function(key){
@@ -66,8 +66,27 @@ $(document).ready(function(){
 				resetBoard();
 				snakeStart();
 			}
-			
 		}
+	});
+
+	// start game by pressing the button
+	$('#start_button').click(function(){
+		if(typeof(snake_loop) == "undefined"){
+				snakeStart();
+			}else{
+				snakeStop();
+				resetBoard();
+				snakeStart();
+			}
+	});
+
+	// mouse move into Play! button, display hidden play option
+	$('#start_button').mouseenter(function(){
+		$('#press_enter').fadeTo(500, 0.8);
+	});
+	// mouse leave
+	$('#start_button').mouseleave(function(){
+		$('#press_enter').fadeTo(500, 0);
 	});
 });
 
@@ -108,7 +127,9 @@ function snakeNextPos(snake_head_pos,direction){
 			break;
 		default : return -1;
 	}
-	return next_pos;
+		if(snake_body_array.indexOf(next_pos)===-1 && snake_body_array.indexOf(next_pos)!==snake_body_array[snake_body_array.length-1])
+			return next_pos;
+		return -1;
 }
 
 // function for check eat bean or not
@@ -146,6 +167,44 @@ function newBean(snake_body_array){
 // function for start the game
 function snakeStart(){	
 	snake_loop = setInterval(function(){
+	//key can only press 1 times each loop, avoid fast direction change like down->left when move right, it cause stop since snake will move straight back
+	var key_press_already=false;
+	$(document).keydown(function(key){
+		// detect key press for direction change
+		if(key_press_already===false){
+			switch(key.keyCode){
+				case 38 :    
+				case 87 :// up
+					if(direction !== "down"){   // can't go up when towardz down
+						direction = "up";
+					}
+					break;
+				case 39 :
+				case 68 :    // right
+					if(direction !== "left"){   
+						direction = "right";
+					}
+					break;
+				case 40 :    // down
+				case 83 :
+					if(direction !== "up"){   
+						direction = "down";
+					}
+					break;
+				case 37 :    // left
+				case 65 :
+					if(direction !== "right"){   
+						direction = "left";
+					}
+					break;
+				default :
+					break;   // do nothing when other key pressed
+			}
+			key_press_already=true;
+		}
+		//var next_pos = snakeNextPos(snake_body_array[0],direction);
+		//snakeBeanCheck(snake_body_array, next_pos, bean_pos);
+	});
 		var next_pos = snakeNextPos(snake_body_array[0],direction);
 		if(next_pos == -1) {
 			snakeStop();
